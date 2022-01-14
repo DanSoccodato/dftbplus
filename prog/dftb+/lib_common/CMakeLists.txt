@@ -31,5 +31,4 @@ if(WITH_GPU)
     ${curdir}/gpuenv.F90)
 endif()
 
-
 set(ALL-SOURCES-FPP ${ALL-SOURCES-FPP} ${sources-fpp} PARENT_SCOPE)

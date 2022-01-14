@@ -12,6 +12,9 @@ if(WITH_API)
     -DAPIPATCH=${API_VERSION_PATCH})
 endif()
 
+if(WITH_SP)
+  list(APPEND fypp_flags -DSP)
+endif()
 #
 # Compile and install library
 #

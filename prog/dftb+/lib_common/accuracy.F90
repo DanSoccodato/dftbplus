@@ -12,8 +12,18 @@
 module dftbp_accuracy
   implicit none
 
+  !> Real double precision - do not edit
+  integer, parameter :: rdp = kind(0.0d0)
+
+  !> Real single precision - do not edit
+  integer, parameter :: rsp = kind(0.0)
+
   !> precision of the real data type
+#:if defined("SP")
+  integer, parameter :: dp = rsp
+#:else
   integer, parameter :: dp = kind(1.0d0)
+#:endif
 
   !> precision of the complex data type
   integer, parameter :: cp = dp
@@ -27,12 +37,6 @@ module dftbp_accuracy
   !> length of a long string
   integer, parameter :: lc = 200
 
-
-  !> Real double precision - do not edit
-  integer, parameter :: rdp = kind(0.0d0)
-
-  !> Real single precision - do not edit
-  integer, parameter :: rsp = kind(0.0)
 
   ! Program technical constants
 

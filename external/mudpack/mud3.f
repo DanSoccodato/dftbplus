@@ -722,7 +722,7 @@ c----+|-----------------------------------------------------------------------|
         go to 1
       else
 c----+|-----------------------------------------------------------------------|
-      Kcycle not complete so descend unless at coarsest
+      !Kcycle not complete so descend unless at coarsest
 c----+|-----------------------------------------------------------------------|
         if (klevel .gt. 1) then
           nx = nxk(klevel)
@@ -815,7 +815,7 @@ c
 c
 c     compute fine grid residual
 c
-      !$OMP PARALLEL DO PRIVATE(i,j,k), SHARED(resf,cof,phi,nx,ny,nz)
+!$OMP PARALLEL DO PRIVATE(i,j,k), SHARED(resf,cof,phi,nx,ny,nz)
       do k=1,nz
         do j=1,ny
           do i=1,nx
@@ -830,7 +830,7 @@ c
           end do
         end do
       end do
-     !$OMP END PARALLEL DO
+!$OMP END PARALLEL DO
 c
 c     restrict resf to interior coarse mesh in rhsc
 c     using fully weighted residual restriction in 3-d
@@ -1534,7 +1534,8 @@ c----+|-----------------------------------------------------------------------|
       if ((m-1)*(m-4)*(m-5)*(m-7) .eq. 0 ) then
         if (nxa .ne. 0 .or. nx .gt. 3) then
           itx = ktxbgn(klevel)
-          call slxmd3(nx,ny,nz,wk(ip),wk(ic),wk(itx),wk(kps),nxa,nyc,nze)
+          call slxmd3(nx,ny,nz,wk(ip),wk(ic),wk(itx),wk(kps),nxa,nyc,
+     +                nze)
         else
           call relmd3p(nx,ny,nz,wk(ip),wk(ic))
         end if
@@ -1548,7 +1549,8 @@ c----+|-----------------------------------------------------------------------|
       if ((m-2)*(m-4)*(m-6)*(m-7) .eq. 0 ) then
         if (nyc .ne. 0 .or. ny .gt. 3) then
           ity = ktybgn(klevel)
-          call slymd3(nx,ny,nz,wk(ip),wk(ic),wk(ity),wk(kps),nxa,nyc,nze)
+          call slymd3(nx,ny,nz,wk(ip),wk(ic),wk(ity),wk(kps),nxa,nyc,
+     +                nze)
         else
           call relmd3p(nx,ny,nz,wk(ip),wk(ic))
         end if
@@ -1563,7 +1565,8 @@ c----+|-----------------------------------------------------------------------|
       if ((m-3)*(m-5)*(m-6)*(m-7) .eq. 0 ) then
         if (nze .ne. 0 .or. nz .gt. 3) then
           itz = ktzbgn(klevel)
-          call slzmd3(nx,ny,nz,wk(ip),wk(ic),wk(itz),wk(kps),nxa,nyc,nze)
+          call slzmd3(nx,ny,nz,wk(ip),wk(ic),wk(itz),wk(kps),nxa,nyc,
+     +                nze)
         else
           call relmd3p(nx,ny,nz,wk(ip),wk(ic))
         end if

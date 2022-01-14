@@ -150,7 +150,7 @@ contains
     !> Corrections terms for on-site elements
     real(dp), intent(in), allocatable :: onSiteElements(:,:,:,:)
 
-    integer :: nSpin
+    integer :: nSpin, i, j
     real(dp) :: nEl(2)
 
     nSpin = size(qOrb, dim=3)
@@ -160,7 +160,14 @@ contains
     call mulliken(energy%atomNonSCC, rhoPrim(:,1), H0, orb, neighbourList%iNeighbour, nNeighbourSK,&
         & img2CentCell, iSparseStart)
     energy%EnonSCC = sum(energy%atomNonSCC(iAtInCentralRegion))
-
+    
+!    open(unit=37, file='/p/home/jusers/soccodato1/juwels/rho/rho_cpu_all')
+!    do i=1,size(rhoPrim,1)
+!       do j = 1, size(rhoPrim,2)
+!          write(37,*)  rhoPrim(i,j)
+!       end do
+!    end do
+!    close(37)
     energy%atomExt(:) = 0.0_dp
     if (tExtField) then
       energy%atomExt(:) = energy%atomExt&

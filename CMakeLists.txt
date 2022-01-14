@@ -9,7 +9,8 @@ dftbp_load_build_settings()
 
 set(DFTBPLUS_VERSION "20.2.1")
 
-project(dftbplus VERSION ${DFTBPLUS_VERSION} LANGUAGES Fortran C)
+#project(dftbplus VERSION ${DFTBPLUS_VERSION} LANGUAGES Fortran C)
+project(dftbplus VERSION ${DFTBPLUS_VERSION} LANGUAGES Fortran C CUDA)
 
 dftbp_setup_build_type()
 dftbp_load_toolchain_settings()

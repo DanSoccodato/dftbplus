@@ -153,7 +153,7 @@ module libnegf_int
     ! This parameter is used to set the averall drop threshold in libnegf
     ! It affects especially transmission that is not accurate more than 
     ! this value.
-    call set_drop(1.d-20)
+    call set_drop(10.0_dp**-20.0_dp) !Comment: used to be 1.E-20
 
 
     ! ------------------------------------------------------------------------------

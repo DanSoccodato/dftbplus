@@ -1,10 +1,20 @@
-set(sources-f77
-  dmud3.f
-  dmuh3.f
-  dmud3ln.f
-  dmud3pn.f
-  dmud3sp.f
-  dmudcom.f)
+if(WITH_SP)
+  set(sources-f77
+    mud3.f
+    muh3.f
+    mud3ln.f
+    mud3pn.f
+    mud3sp.f
+    mudcom.f)
+else()
+  set(sources-f77
+    dmud3.f
+    dmuh3.f
+    dmud3ln.f
+    dmud3pn.f
+    dmud3sp.f
+    dmudcom.f)
+endif()
 
 add_library(mudpack ${sources-f77})
 if(WITH_OMP)
