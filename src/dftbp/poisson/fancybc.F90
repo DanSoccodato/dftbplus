@@ -36,8 +36,8 @@ Subroutine bndyc(kbdy,xory,yorz,alfa,gbdy)
  integer :: kbdy
  real(kind=dp) :: xory,yorz,alfa,gbdy
 
- alfa = 0.d0
- gbdy = 0.d0
+ alfa = 0.0_dp
+ gbdy = 0.0_dp
 
 end subroutine bndyc
 
@@ -45,27 +45,27 @@ end subroutine bndyc
 Subroutine cofx(x,cxx,cx,cex)
   real(dp) :: x, cxx, cx, cex
 
-  cxx = 1.d0
-  cx = 0.d0
-  cex = 0.d0
+  cxx = 1.0_dp
+  cx = 0.0_dp
+  cex = 0.0_dp
 
 end subroutine cofx
 ! ----------------------------------------------------------------------
 Subroutine cofy(y,cyy,cy,cey)
   real(dp) :: y, cyy, cy, cey
 
-  cyy = 1.d0
-  cy = 0.d0
-  cey = 0.d0
+  cyy = 1.0_dp
+  cy = 0.0_dp
+  cey = 0.0_dp
 
 end subroutine cofy
 ! ----------------------------------------------------------------------
 Subroutine cofz(z,czz,cz,cez)
   real(dp) :: z, czz, cz, cez
 
-  czz = 1.d0
-  cz = 0.d0
-  cez = 0.d0
+  czz = 1.0_dp
+  cz = 0.0_dp
+  cez = 0.0_dp
 
 end subroutine cofz
 ! ----------------------------------------------------------------------
@@ -74,13 +74,13 @@ Subroutine coef(x,y,z,cxx,cyy,czz,cx,cy,cz,ce)
 
   real(kind=dp) :: x,y,z,cxx,cyy,czz,cx,cy,cz,ce
 
-   cxx = 1.d0
-   cyy = 1.d0
-   czz = 1.d0
-   cx = 0.d0
-   cy = 0.d0
-   cz = 0.d0
-   ce = 0.d0
+   cxx = 1.0_dp
+   cyy = 1.0_dp
+   czz = 1.0_dp
+   cx = 0.0_dp
+   cy = 0.0_dp
+   cz = 0.0_dp
+   ce = 0.0_dp
 
    if(any(localBC.gt.0)) call coef_local(x,y,z,cxx,cyy,czz,cx,cy,cz,ce)
 
@@ -91,13 +91,13 @@ Subroutine coef_period(x,y,z,cxx,cyy,czz,cx,cy,cz,ce)
 
   real(kind=dp) :: x,y,z,cxx,cyy,czz,cx,cy,cz,ce
 
-   cxx = 1.d0
-   cyy = 1.d0
-   czz = 1.d0
-   cx = 0.d0
-   cy = 0.d0
-   cz = 0.d0
-   ce = 0.d0
+   cxx = 1.0_dp
+   cyy = 1.0_dp
+   czz = 1.0_dp
+   cx = 0.0_dp
+   cy = 0.0_dp
+   cz = 0.0_dp
+   ce = 0.0_dp
 
 
 end subroutine coef_period
@@ -111,13 +111,13 @@ real(kind=dp) :: z_min_gate,z_max_gate
 integer :: i_x,i_y,i_z
 
 
-   cxx = 1.d0
-   cyy = 1.d0
-   czz = 1.d0
-   cx = 0.d0
-   cy = 0.d0
-   cz = 0.d0
-   ce = 0.d0
+   cxx = 1.0_dp
+   cyy = 1.0_dp
+   czz = 1.0_dp
+   cx = 0.0_dp
+   cy = 0.0_dp
+   cz = 0.0_dp
+   ce = 0.0_dp
 
    if(any(localBC.gt.0)) call coef_local(x,y,z,cxx,cyy,czz,cx,cy,cz,ce)
 
@@ -149,12 +149,12 @@ integer :: i_x,i_y,i_z
      ! If Rmin_Gate is positive the gate is on +gatedir
      ! If Rmin_Gate is negative the gate is on -gatedir
 
-        x_min_gate=cntr_gate(i_x)-GateLength_t/2.d0
-        x_max_gate=cntr_gate(i_x)+GateLength_t/2.d0
-        y_min_gate=cntr_gate(i_y)-GateLength_l/2.d0
-        y_max_gate=cntr_gate(i_y)+GateLength_l/2.d0
+        x_min_gate=cntr_gate(i_x)-GateLength_t/2.0_dp
+        x_max_gate=cntr_gate(i_x)+GateLength_t/2.0_dp
+        y_min_gate=cntr_gate(i_y)-GateLength_l/2.0_dp
+        y_max_gate=cntr_gate(i_y)+GateLength_l/2.0_dp
 
-        if (Rmin_Gate.gt.0.d0) then
+        if (Rmin_Gate.gt.0.0_dp) then
            z_min_gate=cntr_gate(i_z)+Rmin_Gate
            z_max_gate=cntr_gate(i_z)+PoissBox(i_z,i_z)
         else
@@ -166,13 +166,13 @@ integer :: i_x,i_y,i_z
            if(y_y.ge.y_min_gate.and.y_y.le.y_max_gate) then
               if(z_z.ge.z_min_gate.and.z_z.le.z_max_gate) then
 
-                   cxx = 0.d0
-                   cyy = 0.d0
-                   czz = 0.d0
-                   cx = 0.d0
-                   cy = 0.d0
-                   cz = 0.d0
-                   ce = 1.d0
+                   cxx = 0.0_dp
+                   cyy = 0.0_dp
+                   czz = 0.0_dp
+                   cx = 0.0_dp
+                   cy = 0.0_dp
+                   cz = 0.0_dp
+                   ce = 1.0_dp
 
                end if
             end if
@@ -210,12 +210,12 @@ subroutine gate_bound(iparm,fparm,dlx,dly,dlz,rhs)
        i_z = 3
    end select
 
-   x_min_gate=cntr_gate(i_x)-GateLength_t/2.d0
-   x_max_gate=cntr_gate(i_x)+GateLength_t/2.d0
-   y_min_gate=cntr_gate(i_y)-GateLength_l/2.d0
-   y_max_gate=cntr_gate(i_y)+GateLength_l/2.d0
+   x_min_gate=cntr_gate(i_x)-GateLength_t/2.0_dp
+   x_max_gate=cntr_gate(i_x)+GateLength_t/2.0_dp
+   y_min_gate=cntr_gate(i_y)-GateLength_l/2.0_dp
+   y_max_gate=cntr_gate(i_y)+GateLength_l/2.0_dp
 
-   if (Rmin_Gate.gt.0.d0) then
+   if (Rmin_Gate.gt.0.0_dp) then
       z_min_gate=cntr_gate(i_z)+Rmin_Gate
       z_max_gate=cntr_gate(i_z)+PoissBox(i_z,i_z)
    else
@@ -288,7 +288,7 @@ Subroutine coef_cilgate(x,y,z,cxx,cyy,czz,cx,cy,cz,ce)
         z_z = z
         i_y= 2
         i_z= 3
-        zero=(/1.d0,0.d0,0.d0/)
+        zero=(/1.0_dp,0.0_dp,0.0_dp/)
 
      case(2)
 
@@ -298,7 +298,7 @@ Subroutine coef_cilgate(x,y,z,cxx,cyy,czz,cx,cy,cz,ce)
         z_z = z
         i_y= 1
         i_z= 3
-        zero=(/0.d0,1.d0,0.d0/)
+        zero=(/0.0_dp,1.0_dp,0.0_dp/)
 
      case(3)
 
@@ -308,63 +308,63 @@ Subroutine coef_cilgate(x,y,z,cxx,cyy,czz,cx,cy,cz,ce)
         z_z = y
         i_y= 1
         i_z= 2
-        zero=(/0.d0,0.d0,1.d0/)
+        zero=(/0.0_dp,0.0_dp,1.0_dp/)
 
      end select
 
-     x_min_gate = cntr_gate(i_x) - GateLength_l/2.d0
-     x_max_gate = cntr_gate(i_x) + GateLength_l/2.d0
-     x_min_ox = cntr_gate(i_x) - OxLength/2.d0
-     x_max_ox = cntr_gate(i_x) + OxLength/2.d0
+     x_min_gate = cntr_gate(i_x) - GateLength_l/2.0_dp
+     x_max_gate = cntr_gate(i_x) + GateLength_l/2.0_dp
+     x_min_ox = cntr_gate(i_x) - OxLength/2.0_dp
+     x_max_ox = cntr_gate(i_x) + OxLength/2.0_dp
 
 
-     a = (eps_r - 1.d0)/dr_eps
-     b = (eps_r + 1.d0)/2.d0 - a*Rmin_Ins
+     a = (eps_r - 1.0_dp)/dr_eps
+     b = (eps_r + 1.0_dp)/2.0_dp - a*Rmin_Ins
 
-     a1 = -(eps_r - 1.d0)/dr_eps
-     b1 = (eps_r + 1.d0)/2.d0 - a1*x_max_ox
+     a1 = -(eps_r - 1.0_dp)/dr_eps
+     b1 = (eps_r + 1.0_dp)/2.0_dp - a1*x_max_ox
 
-     a2 = (eps_r - 1.d0)/dr_eps
-     b2 = (eps_r + 1.d0)/2.d0 - a2*x_min_ox
+     a2 = (eps_r - 1.0_dp)/dr_eps
+     b2 = (eps_r + 1.0_dp)/2.0_dp - a2*x_min_ox
 
 
      d_cntr = sqrt((y_y-cntr_gate(i_y))**2+(z_z-cntr_gate(i_z))**2)
 
      ! First checks whether (xyz) lies outside gate regions
-     if (((x_x.lt.(x_min_ox-dr_eps/2.d0)).or.(x_x.gt.(x_max_ox+dr_eps/2.d0))).or. &
-          (((x_x.ge.(x_min_ox-dr_eps/2.d0)).and.(x_x.le.(x_max_ox+dr_eps/2.d0))).and. &
-          (d_cntr.lt.(Rmin_Ins-dr_eps/2.d0)))) then
+     if (((x_x.lt.(x_min_ox-dr_eps/2.0_dp)).or.(x_x.gt.(x_max_ox+dr_eps/2.0_dp))).or. &
+          (((x_x.ge.(x_min_ox-dr_eps/2.0_dp)).and.(x_x.le.(x_max_ox+dr_eps/2.0_dp))).and. &
+          (d_cntr.lt.(Rmin_Ins-dr_eps/2.0_dp)))) then
 
-        cxx = 1.d0
-        cyy = 1.d0
-        czz = 1.d0
+        cxx = 1.0_dp
+        cyy = 1.0_dp
+        czz = 1.0_dp
 
-        cx = 0.d0
-        cy = 0.d0
-        cz = 0.d0
+        cx = 0.0_dp
+        cy = 0.0_dp
+        cz = 0.0_dp
 
-        ce = 0.d0
+        ce = 0.0_dp
 
         if(any(localBC.gt.0)) call coef_local(x,y,z,cxx,cyy,czz,cx,cy,cz,ce)
 
      else
 
-        if ((d_cntr.lt.(Rmin_Ins+dr_eps/2.d0)).and. &
+        if ((d_cntr.lt.(Rmin_Ins+dr_eps/2.0_dp)).and. &
              ((x_x.le.(-d_cntr+x_max_ox+Rmin_Ins)).and.(x_x.ge.(d_cntr+x_min_ox-Rmin_Ins)))) then
 
            cxx = a*d_cntr + b
            cyy = a*d_cntr + b
            czz = a*d_cntr + b
 
-           cx = (1.d0-zero(1)) * a * ( x - cntr_gate(1) )/d_cntr
-           cy = (1.d0-zero(2)) * a * ( y - cntr_gate(2) )/d_cntr
-           cz = (1.d0-zero(3)) * a * ( z - cntr_gate(3) )/d_cntr
+           cx = (1.0_dp-zero(1)) * a * ( x - cntr_gate(1) )/d_cntr
+           cy = (1.0_dp-zero(2)) * a * ( y - cntr_gate(2) )/d_cntr
+           cz = (1.0_dp-zero(3)) * a * ( z - cntr_gate(3) )/d_cntr
 
-           ce = 0.d0
+           ce = 0.0_dp
 
         else
 
-           if (x_x.gt.(x_max_ox-dr_eps/2.d0)) then
+           if (x_x.gt.(x_max_ox-dr_eps/2.0_dp)) then
 
               cxx = a1*x_x + b1
               cyy = a1*x_x + b1
@@ -374,11 +374,11 @@ Subroutine coef_cilgate(x,y,z,cxx,cyy,czz,cx,cy,cz,ce)
               cy = zero(2)*a1
               cz = zero(3)*a1
 
-              ce = 0.d0
+              ce = 0.0_dp
 
            else
 
-              if (x_x.lt.(x_min_ox+dr_eps/2.d0)) then
+              if (x_x.lt.(x_min_ox+dr_eps/2.0_dp)) then
 
                  cxx = a2*x_x + b2
                  cyy = a2*x_x + b2
@@ -388,7 +388,7 @@ Subroutine coef_cilgate(x,y,z,cxx,cyy,czz,cx,cy,cz,ce)
                  cy = zero(2)*a2
                  cz = zero(3)*a2
 
-                 ce = 0.d0
+                 ce = 0.0_dp
 
               else
 
@@ -399,23 +399,23 @@ Subroutine coef_cilgate(x,y,z,cxx,cyy,czz,cx,cy,cz,ce)
                     cyy = eps_r
                     czz = eps_r
 
-                    cx = 0.d0
-                    cy = 0.d0
-                    cz = 0.d0
+                    cx = 0.0_dp
+                    cy = 0.0_dp
+                    cz = 0.0_dp
 
-                    ce = 0.d0
+                    ce = 0.0_dp
 
                  else
 
-                    cxx = 0.d0
-                    cyy = 0.d0
-                    czz = 0.d0
+                    cxx = 0.0_dp
+                    cyy = 0.0_dp
+                    czz = 0.0_dp
 
-                    cx = 0.d0
-                    cy = 0.d0
-                    cz = 0.d0
+                    cx = 0.0_dp
+                    cy = 0.0_dp
+                    cz = 0.0_dp
 
-                    ce = 1.d0
+                    ce = 1.0_dp
 
                  end if
 
@@ -459,15 +459,15 @@ subroutine cilgate_bound(iparm,fparm,dlx,dly,dlz,rhs)
 
            case(1)
 
-             x_min_gate = cntr_gate(1) - GateLength_l/2.d0
-             x_max_gate = cntr_gate(1) + GateLength_l/2.d0
-             x_min_ox = cntr_gate(1) - OxLength/2.d0
-             x_max_ox = cntr_gate(1) + OxLength/2.d0
+             x_min_gate = cntr_gate(1) - GateLength_l/2.0_dp
+             x_max_gate = cntr_gate(1) + GateLength_l/2.0_dp
+             x_min_ox = cntr_gate(1) - OxLength/2.0_dp
+             x_max_ox = cntr_gate(1) + OxLength/2.0_dp
 
              d_cntr = sqrt((yj-cntr_gate(2))**2+(zk-cntr_gate(3))**2)
 
-             !if ( (d_cntr.gt.(Rmin_Ins-dr_eps/2.d0)).and.(xi.ge.x_min_ox).and.(xi.le.x_max_ox) ) then
-             !   rhs(i,j,k) = 0.d0
+             !if ( (d_cntr.gt.(Rmin_Ins-dr_eps/2.0_dp)).and.(xi.ge.x_min_ox).and.(xi.le.x_max_ox) ) then
+             !   rhs(i,j,k) = 0.0_dp
              !endif
 
              if ( (d_cntr.ge.Rmin_Gate).and.(xi.ge.x_min_gate).and.(xi.le.x_max_gate) ) then
@@ -476,15 +476,15 @@ subroutine cilgate_bound(iparm,fparm,dlx,dly,dlz,rhs)
 
            case(2)
 
-             y_min_gate = cntr_gate(2) - GateLength_l/2.d0
-             y_max_gate = cntr_gate(2) + GateLength_l/2.d0
-             y_min_ox = cntr_gate(2) - OxLength/2.d0
-             y_max_ox = cntr_gate(2) + OxLength/2.d0
+             y_min_gate = cntr_gate(2) - GateLength_l/2.0_dp
+             y_max_gate = cntr_gate(2) + GateLength_l/2.0_dp
+             y_min_ox = cntr_gate(2) - OxLength/2.0_dp
+             y_max_ox = cntr_gate(2) + OxLength/2.0_dp
 
              d_cntr = sqrt((xi-cntr_gate(1))**2+(zk-cntr_gate(3))**2)
 
-             !if ( (d_cntr.gt.(Rmin_Ins-dr_eps/2.d0)).and.(yj.ge.y_min_ox).and.(yj.le.y_max_ox) ) then
-             !   rhs(i,j,k) = 0.d0
+             !if ( (d_cntr.gt.(Rmin_Ins-dr_eps/2.0_dp)).and.(yj.ge.y_min_ox).and.(yj.le.y_max_ox) ) then
+             !   rhs(i,j,k) = 0.0_dp
              !endif
 
              if ( (d_cntr.ge.Rmin_Gate).and.(yj.ge.y_min_gate).and.(yj.le.y_max_gate) ) then
@@ -493,15 +493,15 @@ subroutine cilgate_bound(iparm,fparm,dlx,dly,dlz,rhs)
 
            case(3)
 
-             z_min_gate = cntr_gate(3) - GateLength_l/2.d0
-             z_max_gate = cntr_gate(3) + GateLength_l/2.d0
-             z_min_ox = cntr_gate(3) - OxLength/2.d0
-             z_max_ox = cntr_gate(3) + OxLength/2.d0
+             z_min_gate = cntr_gate(3) - GateLength_l/2.0_dp
+             z_max_gate = cntr_gate(3) + GateLength_l/2.0_dp
+             z_min_ox = cntr_gate(3) - OxLength/2.0_dp
+             z_max_ox = cntr_gate(3) + OxLength/2.0_dp
 
              d_cntr = sqrt((xi-cntr_gate(1))**2+(yj-cntr_gate(2))**2)
 
-             !if ( (d_cntr.gt.(Rmin_Ins-dr_eps/2.d0)).and.(zk.ge.z_min_ox).and.(zk.le.z_max_ox) ) then
-             !   rhs(i,j,k) = 0.d0
+             !if ( (d_cntr.gt.(Rmin_Ins-dr_eps/2.0_dp)).and.(zk.ge.z_min_ox).and.(zk.le.z_max_ox) ) then
+             !   rhs(i,j,k) = 0.0_dp
              !endif
 
              if ( (d_cntr.ge.Rmin_Gate).and.(zk.ge.z_min_gate).and.(zk.le.z_max_gate) ) then
@@ -526,13 +526,13 @@ Subroutine coef_tip(x,y,z,cxx,cyy,czz,cx,cy,cz,ce)
  real(kind=dp) :: y_min_plane,y_max_plane,z_min_plane,z_max_plane
  integer :: i_x,i_y,i_z
 
-   cxx = 1.d0
-   cyy = 1.d0
-   czz = 1.d0
-   cx = 0.d0
-   cy = 0.d0
-   cz = 0.d0
-   ce = 0.d0
+   cxx = 1.0_dp
+   cyy = 1.0_dp
+   czz = 1.0_dp
+   cx = 0.0_dp
+   cy = 0.0_dp
+   cz = 0.0_dp
+   ce = 0.0_dp
 
   selectcase(gatedir)
 
@@ -573,24 +573,24 @@ Subroutine coef_tip(x,y,z,cxx,cyy,czz,cx,cy,cz,ce)
 
         if (x_min_tip.eq.base_atom1(i_x)) then
           if (x_x.lt.x_min_tip) then
-            cxx = 0.d0
-            cyy = 0.d0
-            czz = 0.d0
-            cx = 0.d0
-            cy = 0.d0
-            cz = 0.d0
-            ce = 1.d0
+            cxx = 0.0_dp
+            cyy = 0.0_dp
+            czz = 0.0_dp
+            cx = 0.0_dp
+            cy = 0.0_dp
+            cz = 0.0_dp
+            ce = 1.0_dp
           endif
         end if
         if (x_min_tip.eq.tip_atom(i_x)) then
           if(x_x.gt.x_max_tip) then
-            cxx = 0.d0
-            cyy = 0.d0
-            czz = 0.d0
-            cx = 0.d0
-            cy = 0.d0
-            cz = 0.d0
-            ce = 1.d0
+            cxx = 0.0_dp
+            cyy = 0.0_dp
+            czz = 0.0_dp
+            cx = 0.0_dp
+            cy = 0.0_dp
+            cz = 0.0_dp
+            ce = 1.0_dp
           endif
         end if
 
@@ -609,13 +609,13 @@ Subroutine coef_tip(x,y,z,cxx,cyy,czz,cx,cy,cz,ce)
              if(y_y.gt.y_min_plane.and.y_y.lt.y_max_plane) then
                 if(z_z.gt.z_min_plane.and.z_z.lt.z_max_plane) then
 
-                   cxx = 0.d0
-                   cyy = 0.d0
-                   czz = 0.d0
-                   cx = 0.d0
-                   cy = 0.d0
-                   cz = 0.d0
-                   ce = 1.d0
+                   cxx = 0.0_dp
+                   cyy = 0.0_dp
+                   czz = 0.0_dp
+                   cx = 0.0_dp
+                   cy = 0.0_dp
+                   cz = 0.0_dp
+                   ce = 1.0_dp
 
                 endif
               endif
@@ -737,13 +737,13 @@ Subroutine coef_local(x,y,z,cxx,cyy,czz,cx,cy,cz,ce)
  real(kind=dp) :: xx,yy,zz,R
 
 
- cxx = 1.d0
- cyy = 1.d0
- czz = 1.d0
- cx = 0.d0
- cy = 0.d0
- cz = 0.d0
- ce = 0.d0
+ cxx = 1.0_dp
+ cyy = 1.0_dp
+ czz = 1.0_dp
+ cx = 0.0_dp
+ cy = 0.0_dp
+ cz = 0.0_dp
+ ce = 0.0_dp
 
  do m = 1, ncont
 
@@ -765,13 +765,13 @@ Subroutine coef_local(x,y,z,cxx,cyy,czz,cx,cy,cz,ce)
        case(1)
           R=sqrt((zz-cntr_cont(i_z,m))**2+(yy-cntr_cont(i_y,m))**2)
           if(R.le.R_cont(m)) then
-             cxx = 0.d0
-             cyy = 0.d0
-             czz = 0.d0
-             cx = 0.d0
-             cy = 0.d0
-             cz = 0.d0
-             ce = 1.d0
+             cxx = 0.0_dp
+             cyy = 0.0_dp
+             czz = 0.0_dp
+             cx = 0.0_dp
+             cy = 0.0_dp
+             cz = 0.0_dp
+             ce = 1.0_dp
           endif
 
        case(2)
@@ -779,13 +779,13 @@ Subroutine coef_local(x,y,z,cxx,cyy,czz,cx,cy,cz,ce)
           if(zz.ge.cntr_cont(i_z,m)-R_cont(m).and.zz.le.cntr_cont(i_z,m)+R_cont(m).and. &
              yy.ge.cntr_cont(i_y,m)-R_cont(m).and.yy.le.cntr_cont(i_y,m)+R_cont(m)) then
 
-             cxx = 0.d0
-             cyy = 0.d0
-             czz = 0.d0
-             cx = 0.d0
-             cy = 0.d0
-             cz = 0.d0
-             ce = 1.d0
+             cxx = 0.0_dp
+             cyy = 0.0_dp
+             czz = 0.0_dp
+             cx = 0.0_dp
+             cy = 0.0_dp
+             cz = 0.0_dp
+             ce = 1.0_dp
           endif
 
        end select
@@ -835,8 +835,8 @@ subroutine local_bound(iparm,fparm,x,rhs,phi_bulk)
        i_z=phi_bulk(m)%b
 
        !	R of contact
-       Rmin_x=(x_max-x_min)/2.d0
-       Rmin_y=(y_max-y_min)/2.d0
+       Rmin_x=(x_max-x_min)/2.0_dp
+       Rmin_y=(y_max-y_min)/2.0_dp
        R_cont(m)=max(Rmin_x,Rmin_y)+dR_cont(m)
 
        select case ( abs(contdir(m)) )
@@ -907,8 +907,8 @@ Subroutine mix_bndyc(kbdy,xory,yorz,alfa,gbdy)
 
  ! Standard Neumann BC
 
- alfa = 0.d0
- gbdy = 0.d0
+ alfa = 0.0_dp
+ gbdy = 0.0_dp
 
  if (mixed(kbdy)) then
 

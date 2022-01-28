@@ -260,12 +260,12 @@ module dftbp_poisson_poisson
         if (contdir(m).gt.0) then
            !fparm((f*2)-1) = bound(m) - PoissBox(f,f)
            PoissBounds(f,1) = min( bound(m) - PoissBox(f,f), &
-                              minval(x(f,1:iatm(2)))-2.d0*deltaR_max )
+                              minval(x(f,1:iatm(2)))-2.0_dp*deltaR_max )
            PoissBounds(f,2) = bound(m)
         else
            !fparm((f*2))   = bound(m) + PoissBox(f,f)
            PoissBounds(f,2) = max( bound(m) + PoissBox(f,f), &
-                              maxval(x(f,1:iatm(2)))+2.d0*deltaR_max )
+                              maxval(x(f,1:iatm(2)))+2.0_dp*deltaR_max )
            PoissBounds(f,1) = bound(m)
         end if
         PoissBox(f,f) = PoissBounds(f,2)-PoissBounds(f,1)
@@ -290,18 +290,18 @@ module dftbp_poisson_poisson
      f=iatm(2)
      if (tmpdir(i) .eq. 0) then
 
-        tmp=(maxval(x(i,1:f))-minval(x(i,1:f))+2.d0*deltaR_max)
+        tmp=(maxval(x(i,1:f))-minval(x(i,1:f))+2.0_dp*deltaR_max)
 
         if(any(localBC.gt.0)) then
-           tmp = tmp - 2.d0*deltaR_max + 2.d0*maxval(dR_cont)
+           tmp = tmp - 2.0_dp*deltaR_max + 2.0_dp*maxval(dR_cont)
         endif
 
         if (.not.period_dir(i).and.PoissBox(i,i).le.tmp) PoissBox(i,i) = tmp
 
         Lx= maxval(x(i,1:f))+minval(x(i,1:f))
 
-        PoissBounds(i,2) = ( Lx+PoissBox(i,i) )/2.d0
-        PoissBounds(i,1) = ( Lx-PoissBox(i,i) )/2.d0
+        PoissBounds(i,2) = ( Lx+PoissBox(i,i) )/2.0_dp
+        PoissBounds(i,1) = ( Lx-PoissBox(i,i) )/2.0_dp
 
      end if
 
@@ -322,7 +322,7 @@ module dftbp_poisson_poisson
   !-------------------------------
   if (DoGate) then
      biasdir = abs(contdir(1))
-     if (((PoissBox(gatedir,gatedir))/2.d0).le.Rmin_Gate) then
+     if (((PoissBox(gatedir,gatedir))/2.0_dp).le.Rmin_Gate) then
        @:ERROR_HANDLING(iErr, -5, 'Gate Distance too large')
      end if
   endif
@@ -339,7 +339,7 @@ module dftbp_poisson_poisson
         if (i.eq.biasdir) then
           cycle
         end if
-        if (((PoissBox(i,i))/2.d0).le.Rmin_Gate) then
+        if (((PoissBox(i,i))/2.0_dp).le.Rmin_Gate) then
           @:ERROR_HANDLING(iErr, -7, 'Gate transversal section is bigger than Poisson box!')
         end if
       end do
@@ -350,7 +350,7 @@ module dftbp_poisson_poisson
   !---------------------------------------
   if (DoGate.or.DoCilGate) then
      do i = 1,3
-        cntr_gate(i) = ( PoissBounds(i,2) + PoissBounds(i,1) )/2.d0
+        cntr_gate(i) = ( PoissBounds(i,2) + PoissBounds(i,1) )/2.0_dp
      end do
   end if
 
@@ -487,9 +487,9 @@ subroutine mudpack_drv(env, SCC_in, V_L_atm, grad_V, iErr)
     worksize = (iparm(14) + 2)*(iparm(15) + 2)*(iparm(16) +2)*(12+isx+jsy+ksz)
     iparm(21) = worksize
 
-    x0=(fparm(2)+fparm(1))/2.d0
-    y0=(fparm(4)+fparm(3))/2.d0
-    z0=(fparm(6)+fparm(5))/2.d0
+    x0=(fparm(2)+fparm(1))/2.0_dp
+    y0=(fparm(4)+fparm(3))/2.0_dp
+    z0=(fparm(6)+fparm(5))/2.0_dp
 
 
     ! Special settings for mud3sp solver --------------------------------
@@ -506,11 +506,11 @@ subroutine mudpack_drv(env, SCC_in, V_L_atm, grad_V, iErr)
  !**********************************************************************************
  if (id0 .and. .not.allocated(phi_)) then
     call log_gallocate(phi_,iparm(14),iparm(15),iparm(16))
-    phi_(:,:,:) = 0.d0
+    phi_(:,:,:) = 0.0_dp
  end if
  if (id0 .and. .not.allocated(rhs_)) then
     call log_gallocate(rhs_,iparm(14),iparm(15),iparm(16))
-    rhs_(:,:,:) = 0.d0
+    rhs_(:,:,:) = 0.0_dp
  end if
 
  !**********************************************************************************
@@ -679,7 +679,7 @@ case(GetPOT)     !Poisson called in order to calculate potential in SCC
 
        if(id0.and.niter_.eq.1.and.verbose.gt.VBT) then
          write(stdOut,*) 'Memory required for Poisson:', &
-                          (2*size(phi_)+iparm(21)+cont_mem)*8.d0/1d6,'Mb'
+                          (2*size(phi_)+iparm(21)+cont_mem)*8.0_dp/1d6,'Mb'
 
          write(stdOut,'(73("-"))')
        endif
@@ -1047,7 +1047,7 @@ subroutine renormalization_volume(iparm, fparm, dlx, dly, dlz, fixed)
   ! introduced by the last grid-point that should fold on the first.
   ! for this reason on periodic dir we compute the point mod(np-1).
 
-  tau = 3.2d0 * uhubb
+  tau = 3.2_dp * uhubb
 
   if (.not.(allocated(renorm))) call log_gallocate(renorm,maxval(lmax)+1,natoms)
   renorm = 0.0
@@ -1057,7 +1057,7 @@ subroutine renormalization_volume(iparm, fparm, dlx, dly, dlz, fixed)
     do atom = 1, natoms
        nsh = lmax(izp(atom))+1
       do l = 1, nsh
-        renorm(l,atom) = (8.d0*Pi)/(tau(l,izp(atom))**3)
+        renorm(l,atom) = (8.0_dp*Pi)/(tau(l,izp(atom))**3)
       enddo
     enddo
   else
@@ -1112,7 +1112,7 @@ subroutine renormalization_volume(iparm, fparm, dlx, dly, dlz, fixed)
   endif
 
   !Inverting total volume to calculate the renormalization factors
-  renorm = 1.d0/renorm
+  renorm = 1.0_dp/renorm
 
 end subroutine renormalization_volume
 !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -1135,7 +1135,7 @@ subroutine charge_density(iparm,fparm,dlx,dly,dlz,rhs)
  integer :: imin(3),imax(3), ii, jj, kk, l, nsh
  real(kind=dp), allocatable, dimension(:,:) :: tau
 
- rhs(:,:,:)=0.d0
+ rhs(:,:,:)=0.0_dp
 
  dl(1)=dlx; dl(2)=dly; dl(3)=dlz;
 
@@ -1160,10 +1160,10 @@ subroutine charge_density(iparm,fparm,dlx,dly,dlz,rhs)
 
  ! Set for each shell a renormalization term which correctly
  ! takes into account cutoff of exponential as well
- tau = 3.2d0 * uhubb
+ tau = 3.2_dp * uhubb
 
  do atom = 1, natoms !istart(id+1), iend(id+1)
-    tmp=0.d0
+    tmp=0.0_dp
     ! project the atom on the primitive cell
     !patom=mod(atom-1,natoms)+1
     nsh = lmax(izp(atom))+1
@@ -1203,8 +1203,8 @@ subroutine charge_density(iparm,fparm,dlx,dly,dlz,rhs)
              deltaR = sqrt(dot_product(xi-x(:,atom),xi-x(:,atom)))
              ! add charge density contrib
              do l = 1, nsh
-               !tmp=3.2d0*uhubb(l,izp(atom))
-               rhs(ii,jj,kk) = rhs(ii,jj,kk) - 4.d0 * Pi * renorm(l,atom) *&
+               !tmp=3.20_dp*uhubb(l,izp(atom))
+               rhs(ii,jj,kk) = rhs(ii,jj,kk) - 4.0_dp * Pi * renorm(l,atom) *&
                    & dQmat(l,atom) * exp(-tau(l,izp(atom))*deltaR)
                !note: rhs contains -4*pi in normalization term:
                !Volume renormalization is in renorm and includes discretization and
@@ -1324,10 +1324,10 @@ Subroutine shift_Ham(iparm,fparm,dlx,dly,dlz,phi,phi_bulk,V_atm)
 
      nsh = lmax(izp(atm))+1
      shells: do l = 1, nsh
-        g = 3.2d0*uhubb(l,izp(atm))
+        g = 3.2_dp*uhubb(l,izp(atm))
         vol = dlx*dly*dlz
-        Norm=0.d0
-        V_tmp = 0.d0
+        Norm=0.0_dp
+        V_tmp = 0.0_dp
 
         do i = imin(1),imax(1)
 
@@ -1483,9 +1483,9 @@ subroutine gradient_V(phi,iparm,fparm,dlx,dly,dlz,grad_V)
 
      nsh = lmax(izp(atm))+1
      do l = 1, nsh
-       g = 3.2d0*uhubb(l,izp(atm))
-       tmp_Gr = 0.d0
-       Norm = 0.d0
+       g = 3.2_dp*uhubb(l,izp(atm))
+       tmp_Gr = 0.0_dp
+       Norm = 0.0_dp
 
        do i = imin(1),imax(1)
 
@@ -1506,7 +1506,7 @@ subroutine gradient_V(phi,iparm,fparm,dlx,dly,dlz,grad_V)
                 ! Compute distance from atom
 
                 deltaR = sqrt(dot_product(xi(:)-x(:,atm), xi(:)-x(:,atm)))
-                if (deltaR.gt.deltaR_max .or. deltaR.eq.0.d0) then
+                if (deltaR.gt.deltaR_max .or. deltaR.eq.0.0_dp) then
                    cycle
                 else
 
@@ -1591,7 +1591,7 @@ subroutine save_pot(iparm,fparm,dlx,dly,dlz,phi,rhs)
      do i = 1,iparm(14)
         do j = 1,iparm(15)
            do k = 1,iparm(16)
-              write(fp,'(E17.8)') rhs(i,j,k)/(-4.d0*Pi)
+              write(fp,'(E17.8)') rhs(i,j,k)/(-4.0_dp*Pi)
            end do
         end do
      end do
@@ -1626,7 +1626,7 @@ subroutine save_pot(iparm,fparm,dlx,dly,dlz,phi,rhs)
          do k = 1,iparm(16)
            zk = fparm(5) + (k - 1)*dlz
            write(fp,'(E17.8,E17.8,E17.8)') yj*Bohr__AA, zk*Bohr__AA, rhs(nx_fix&
-               &,j,k)/(-4.0*4.0*atan(1.d0))
+               &,j,k)/(-4.0*4.0*atan(1.0_dp))
 
          end do
        end do
@@ -1654,7 +1654,7 @@ subroutine save_pot(iparm,fparm,dlx,dly,dlz,phi,rhs)
          do k = 1,iparm(16)
            zk = fparm(5) + (k - 1)*dlz
            write(fp,'(E17.8,E17.8,E17.8)')  xi*Bohr__AA, zk*Bohr__AA, rhs(i&
-               &,ny_fix,k)/(-4.0*4.0*atan(1.d0))
+               &,ny_fix,k)/(-4.0*4.0*atan(1.0_dp))
 
          end do
        end do
@@ -1684,7 +1684,7 @@ subroutine save_pot(iparm,fparm,dlx,dly,dlz,phi,rhs)
          do j = 1,iparm(15)
            yj = fparm(3) + (j - 1)*dly
            write(fp,'(E17.8,E17.8,E17.8)') xi*Bohr__AA, yj*Bohr__AA, rhs(i,j&
-               &,nz_fix)/(-4.0*4.0*atan(1.d0))
+               &,nz_fix)/(-4.0*4.0*atan(1.0_dp))
 
          end do
        end do
@@ -1702,10 +1702,10 @@ subroutine save_pot(iparm,fparm,dlx,dly,dlz,phi,rhs)
    !-----------------------------
 
    if (id0.and.DoCilGate) then
-     z_min_gate = cntr_gate(biasdir) - GateLength_l/2.d0
-     z_max_gate = cntr_gate(biasdir) + GateLength_l/2.d0
-     z_min_ox = cntr_gate(biasdir) - OxLength/2.d0
-     z_max_ox = cntr_gate(biasdir) + OxLength/2.d0
+     z_min_gate = cntr_gate(biasdir) - GateLength_l/2.0_dp
+     z_max_gate = cntr_gate(biasdir) + GateLength_l/2.0_dp
+     z_min_ox = cntr_gate(biasdir) - OxLength/2.0_dp
+     z_max_ox = cntr_gate(biasdir) + OxLength/2.0_dp
      open(newunit=fp,file='gate.dat')
      write(fp,'(i2)') biasdir
      write(fp,'(E17.8,E17.8)') z_min_gate*Bohr__AA,z_max_gate*Bohr__AA
@@ -1719,19 +1719,19 @@ subroutine save_pot(iparm,fparm,dlx,dly,dlz,phi,rhs)
      open(newunit=fp,file='gate.dat')
      write(fp,'(i2)') gatedir, biasdir
 
-     z_min_gate = cntr_gate(biasdir) - GateLength_l/2.d0
-     z_max_gate = cntr_gate(biasdir) + GateLength_l/2.d0
+     z_min_gate = cntr_gate(biasdir) - GateLength_l/2.0_dp
+     z_max_gate = cntr_gate(biasdir) + GateLength_l/2.0_dp
      write(fp,'(E17.8,E17.8)') z_min_gate*Bohr__AA,z_max_gate*Bohr__AA
 
      do i=1,3
        if (i.ne.gatedir .and. i.ne.biasdir) exit
      enddo
-     z_min_gate = cntr_gate(i) - GateLength_t/2.d0
-     z_max_gate = cntr_gate(i) + GateLength_t/2.d0
+     z_min_gate = cntr_gate(i) - GateLength_t/2.0_dp
+     z_max_gate = cntr_gate(i) + GateLength_t/2.0_dp
      write(fp,'(E17.8,E17.8)') z_min_gate*Bohr__AA,z_max_gate*Bohr__AA
 
-     z_min_ox = cntr_gate(gatedir) - OxLength/2.d0
-     z_max_ox = cntr_gate(gatedir) + OxLength/2.d0
+     z_min_ox = cntr_gate(gatedir) - OxLength/2.0_dp
+     z_max_ox = cntr_gate(gatedir) + OxLength/2.0_dp
      write(fp,'(E17.8,E17.8)') z_min_ox*Bohr__AA,z_max_ox*Bohr__AA
      write(fp,'(E17.8,E17.8)') Rmin_Gate*Bohr__AA,Rmin_Ins*Bohr__AA
      write(fp,'(E17.8,E17.8)') cntr_gate(1)*Bohr__AA,cntr_gate(2)*Bohr__AA,cntr_gate(3)*Bohr__AA
@@ -1792,7 +1792,7 @@ subroutine save_pot(iparm,fparm,dlx,dly,dlz,phi,rhs)
       stepz = nz - 1
    end select
 
-   tol = 1.0d-5
+   tol = 1.0e-5_dp
 
    do k = 1, nz, stepz
      zk = fparm(1) + (k-1)*dlz
@@ -1852,7 +1852,7 @@ subroutine save_pot(iparm,fparm,dlx,dly,dlz,phi,rhs)
    yy=yy1+PoissBounds(2,1)
    zz=zz1+PoissBounds(3,1)
 
-   rho = 0.d0
+   rho = 0.0_dp
    if (.not.period) then
 
       do atom = 1,natoms
@@ -1864,9 +1864,9 @@ subroutine save_pot(iparm,fparm,dlx,dly,dlz,phi,rhs)
 
            nsh = lmax(izp(atom))+1
            do l = 1, nsh
-             tau = 3.2d0*uhubb(l,izp(atom))
+             tau = 3.2_dp*uhubb(l,izp(atom))
 
-             rho = rho - 0.5d0* dQmat(l,atom) * (tau)**3 * exp(-tau*deltaR)
+             rho = rho - 0.5_dp* dQmat(l,atom) * (tau)**3 * exp(-tau*deltaR)
              ! written this way rho contains -4*pi factor
            end do
          end if
@@ -1879,7 +1879,7 @@ subroutine save_pot(iparm,fparm,dlx,dly,dlz,phi,rhs)
 
    end if
 
-   rho=-rho/4.d0/Pi  !now rho is really charge density
+   rho=-rho/4.0_dp/Pi  !now rho is really charge density
 
  end function rho
  !%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -1896,16 +1896,16 @@ subroutine save_pot(iparm,fparm,dlx,dly,dlz,phi,rhs)
    yy=yy1+PoissBounds(2,1)
    zz=zz1+PoissBounds(3,1)
 
-   n_alpha=0.d0
+   n_alpha=0.0_dp
 
    deltaR = sqrt((xx - x(1,atom))**2 + (yy - x(2,atom))**2 + (zz - x(3,atom))**2)
    if (deltaR.lt.deltaR_max) then
 
       nsh = lmax(izp(atom))+1
       do l = 1, nsh
-         g = 3.2d0*uhubb(l,izp(atom))
+         g = 3.2_dp*uhubb(l,izp(atom))
          n_alpha  = (g**3)*exp(-g*deltaR)
-         n_alpha  = n_alpha/8.d0/Pi
+         n_alpha  = n_alpha/8.0_dp/Pi
       enddo
    end if
 
@@ -1937,7 +1937,7 @@ end module dftbp_poisson_poisson
 !!$
 !!$      nn=natoms
 !!$
-!!$      V_orb(1:ndim)=0.d0
+!!$      V_orb(1:ndim)=0.0_dp
 !!$
 !!$      call log_gallocate(X_atm,nn)
 !!$      call log_gallocate(Y_atm,nn)
@@ -1977,7 +1977,7 @@ end module dftbp_poisson_poisson
 !!$      call log_gdeallocate(Z_atm)
 !!$
 !!$      ! Add up all orbital shifts to get atom shift
-!!$      V_atm(1:nn) = 0.d0
+!!$      V_atm(1:nn) = 0.0_dp
 !!$      do atm = iatm(1),iatm(2)
 !!$         do orb = ind(atm)+1,ind(atm+1)
 !!$            V_atm(atm) = V_atm(atm) + V_orb(orb)

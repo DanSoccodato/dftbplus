@@ -585,7 +585,7 @@ contains
       call convertByMul(char(modif), energyUnits, field, contacts(ii)%kbT)
 
       if (upload) then
-        contacts(ii)%potential = 0.d0
+        contacts(ii)%potential = 0.0_dp
 
         call getChildValue(pNode, "wideBand", contacts(ii)%wideBand, .false.)
         if (contacts(ii)%wideBand) then
@@ -596,11 +596,11 @@ contains
           !WideBandApproximation is defined as energy spacing between levels
           !In the code the inverse value (Density of states) is used
           !Convert the negf input value. Default is 20.e eV
-          contacts(ii)%wideBandDos = 1.d0 / contacts(ii)%wideBandDos
+          contacts(ii)%wideBandDos = 1.0_dp / contacts(ii)%wideBandDos
         end if
         !call getChildValue(pNode, "FermiLevel", contacts(ii)%eFermi,modifier=modif)
         !call convertByMul(char(modif), energyUnits, pNode, contacts(ii)%eFermi)
-        contacts(ii)%eFermi=0.d0
+        contacts(ii)%eFermi=0.0_dp
       end if
 
     enddo
@@ -1277,7 +1277,7 @@ contains
     tundos%emin = eRange(1)
     tundos%emax = eRange(2)
 
-    if (eRange(1).le.0.d0) then
+    if (eRange(1).le.0.0_dp) then
        call detailedError(root, "FreqRange must be > 0")
     end if
     if (eRange(2).lt.eRange(1)) then

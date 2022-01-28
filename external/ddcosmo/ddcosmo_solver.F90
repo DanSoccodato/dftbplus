@@ -23,7 +23,11 @@ module ddcosmo_solver
 
   public :: jacobi_diis, lx, lstarx, ldm1x, hnorm
 
+#:if defined("SP")
+  integer, parameter :: dp = kind(0.0)
+#:else
   integer, parameter :: dp = selected_real_kind(15)
+#:endif
 
   abstract interface
     subroutine lx_interface(ddCosmo, n, x, y)

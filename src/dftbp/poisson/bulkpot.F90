@@ -287,7 +287,7 @@ contains
 
    call log_gallocate(phi_bulk(m)%val,na,nb,nc)
 
-   phi_bulk(m)%val(1:na,1:nb,1:nc)=0.d0
+   phi_bulk(m)%val(1:na,1:nb,1:nc)=0.0_dp
 
   enddo
 
@@ -389,7 +389,7 @@ Subroutine compbulk_pot_ewald(phi_bulk, m)
   integer :: istart, iend, nsh, l
 
   ! set tolerance for convergence
-  tol = 1.0d-5
+  tol = 1.0e-5_dp
 
 
   ! Ewald sum initialization
@@ -439,7 +439,7 @@ Subroutine compbulk_pot_ewald(phi_bulk, m)
 
   call log_gallocate( phi_bulk_PAR,na,nb,nc)
 
-  phi_bulk_PAR(:,:,:) = 0.d0
+  phi_bulk_PAR(:,:,:) = 0.0_dp
 
   !OMP PARALLEL DO  FIRSTPRIVATE(basis,tol,alpha,vol) &
   !OMP& PRIVATE(distR,deltaQ,uhatm,sh_pot,lng_pot,xi,yj,zk)
@@ -626,8 +626,8 @@ Subroutine bulk_bndyc(kbdy,xory,yorz,alfa,gbdy)
   integer :: kbdy
   real(dp) :: xory,yorz,alfa,gbdy
 
-  alfa = 0.d0
-  gbdy = 0.d0
+  alfa = 0.0_dp
+  gbdy = 0.0_dp
 
 end subroutine bulk_bndyc
 
@@ -635,27 +635,27 @@ end subroutine bulk_bndyc
 Subroutine bulk_cofx(x,cxx,cx,cex)
   real(dp) :: x,cxx,cx,cex
 
-  cxx = 1.d0
-  cx = 0.d0
-  cex = 0.d0
+  cxx = 1.0_dp
+  cx = 0.0_dp
+  cex = 0.0_dp
 
 end subroutine
 
 Subroutine bulk_cofy(y,cyy,cy,cey)
   real(dp) :: y,cyy,cy,cey
 
-  cyy = 1.d0
-  cy = 0.d0
-  cey = 0.d0
+  cyy = 1.0_dp
+  cy = 0.0_dp
+  cey = 0.0_dp
 
 end subroutine
 
 Subroutine bulk_cofz(z,czz,cz,cez)
   real(dp) :: z,czz,cz,cez
 
-  czz = 1.d0
-  cz = 0.d0
-  cez = 0.d0
+  czz = 1.0_dp
+  cz = 0.0_dp
+  cez = 0.0_dp
 
 end subroutine
 
@@ -676,7 +676,7 @@ subroutine set_bulk_rhs(phi_bulk,cont)
   m=cont
 
   dir=sign(1,contdir(m))
-  phi_bulk(m)%rhs = 0.d0
+  phi_bulk(m)%rhs = 0.0_dp
   dl(1)=phi_bulk(m)%dla; dl(2)=phi_bulk(m)%dlb; dl(3)=phi_bulk(m)%dlc;
 
   c(1)=phi_bulk(m)%a
@@ -704,7 +704,7 @@ subroutine set_bulk_rhs(phi_bulk,cont)
   do atom = iatc(3,m),iatc(3,m)+phi_bulk(m)%natm_PL-1
     nsh = lmax(izp(atom))+1
     do l = 1, nsh
-      tmp=3.2d0*uhubb(l,izp(atom))
+      tmp=3.2_dp*uhubb(l,izp(atom))
       ! Set boundaries of a box around the atom
       ! Reference system is rotated to a,b,c
       do i = 1,3
@@ -754,7 +754,7 @@ subroutine set_bulk_rhs(phi_bulk,cont)
              ! add charge density contrib
 
              phi_bulk(m)%rhs(ii,jj,kk) = phi_bulk(m)%rhs(ii,jj,kk) &
-                  -0.5d0* dQmat(l,atom)* (tmp**3)*exp(-tmp*deltaR)
+                  -0.5_dp* dQmat(l,atom)* (tmp**3)*exp(-tmp*deltaR)
              !rhs contains -4*pi in normalization term: -4pi*tau^3/(8pi) = -0.5*tau^3
 
            end do

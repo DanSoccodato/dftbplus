@@ -94,16 +94,16 @@ module dftbp_poisson_structure
       boxsiz(:,:) = transpose(st_latVecs)
 
       do i = 1, 3
-         if (abs(boxsiz(i,i))<1.0d-4) then
+         if (abs(boxsiz(i,i))<1.0e-4_dp) then
            do j = i+1, 3
-             if (abs(boxsiz(j,i))>1.d-4) then
+             if (abs(boxsiz(j,i))>1.e-4_dp) then
                side(:)=boxsiz(i,:)
                boxsiz(i,:)=boxsiz(j,:)
                boxsiz(j,:)=side(:)
              endif
            enddo
          endif
-         if(boxsiz(i,i)<0.d0) boxsiz(i,:)=-boxsiz(i,:)
+         if(boxsiz(i,i)<0.0_dp) boxsiz(i,:)=-boxsiz(i,:)
       enddo
 
       period=st_isperiodic
@@ -243,7 +243,7 @@ module dftbp_poisson_structure
      l = min(lu,sqrt(helpv(1)**2 + helpv(2)**2 + helpv(3)**2)/lw)
 
      !set nlat(1) according to slkcutoff. At least 1.
-     nlat(1) = max(int(2.d0*slkcutoff/l),1)
+     nlat(1) = max(int(2.0_dp*slkcutoff/l),1)
 
      !for v,w do the same as for u...
      CALL CROSS(v,u,helpv)
@@ -252,7 +252,7 @@ module dftbp_poisson_structure
      CALL CROSS(v,w,helpv)
      l = min(lv,sqrt(helpv(1)**2 + helpv(2)**2 + helpv(3)**2)/lw)
 
-     nlat(2) = max(int(2.d0*slkcutoff/l),1)
+     nlat(2) = max(int(2.0_dp*slkcutoff/l),1)
 
      CALL CROSS(w,u,helpv)
      l = min(lw,sqrt(helpv(1)**2 + helpv(2)**2 + helpv(3)**2)/lu)
@@ -260,7 +260,7 @@ module dftbp_poisson_structure
      CALL CROSS(w,v,helpv)
      l = min(lw,sqrt(helpv(1)**2 + helpv(2)**2 + helpv(3)**2)/lv)
 
-     nlat(3) = max(int(2.d0*slkcutoff/l),1)
+     nlat(3) = max(int(2.0_dp*slkcutoff/l),1)
 
    end subroutine gamma_summind
 

@@ -154,7 +154,7 @@ module phonons_libnegfint
     ! This parameter is used to set the averall drop threshold in libnegf
     ! It affects especially transmission that is not accurate more than
     ! this value.
-    call set_drop(1.d-20)
+    call set_drop(1.e-20_dp)
 
 
     ! ------------------------------------------------------------------------------
@@ -191,7 +191,7 @@ module phonons_libnegfint
 
     ! Energy conversion only affects output units.
     ! The library writes energies as (E * negf%eneconv)
-    parms%eneconv = 1.d0
+    parms%eneconv = 1.0_dp
 
     parms%isSid = .true.
 
@@ -474,7 +474,7 @@ module phonons_libnegfint
     allocate(kWeights(nK))
     kPoints = 0.0_dp
     kWeights = 1.0_dp
-    cutoff = 1d-30
+    cutoff = 1e-30_dp
     HessianUnits%name = "H"
     HeatCurrUnits%name = "W"
     HeatCondUnits%name = "W/K"
@@ -576,7 +576,7 @@ module phonons_libnegfint
     if (allocated(ldosMat)) then
       ! Multiply density by 2w
       do ii = 1, size(ldosMat,1)
-        ldosMat(ii,:) = ldosMat(ii,:) * 2.d0*(negf%emin + negf%estep*(ii-1))
+        ldosMat(ii,:) = ldosMat(ii,:) * 2.0_dp*(negf%emin + negf%estep*(ii-1))
       end do
       ! Write Total localDOS on a separate file (optional)
       if (tIOProc .and. twriteLDOS) then

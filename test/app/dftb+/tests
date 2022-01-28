@@ -461,3 +461,68 @@ transport/H-sheet_end                  #? WITH_TRANSPORT and MPI_PROCS <= 4
 pp-RPA/ethene                          #? not WITH_MPI
 pp-RPA/benzene_TammDancoff             #? not WITH_MPI
 pp-RPA/furan_OrbConst                  #? not WITH_MPI
+
+sp_scc/SiC_512_GPU                        #? WITH_GPU and not WITH_MPI
+sp_scc/H2O2_3rdfull-damp                  #? MPI_PROCS <= 1
+sp_scc/H3                                 #? MPI_PROCS <= 1
+sp_scc/H3_skipcheck                       #? MPI_PROCS <= 1
+sp_scc/CH4_nonconverged                   #? MPI_PROCS <= 1
+sp_scc/2H2O-3rdorder                      #? MPI_PROCS <= 1
+sp_scc/2H2O-3rdorder_read                 #? MPI_PROCS <= 1
+sp_scc/C2H6_3rdfull                       #? MPI_PROCS <= 1
+sp_scc/C2H6_3rdfull-damp                  #? MPI_PROCS <= 1
+sp_scc/H2O2_3rdfull                       #? MPI_PROCS <= 1
+sp_scc/H2O2-3rdfull-ldep                  #? MPI_PROCS <= 1
+sp_scc/H2O-extchrg                        #? MPI_PROCS <= 1
+sp_scc/H2O-extchrg-blur                   #? MPI_PROCS <= 1
+sp_scc/H2O-extchrg-direct                 #? MPI_PROCS <= 1
+sp_scc/H2O-extchrg-periodic               #? MPI_PROCS <= 1
+sp_scc/H2O-extfield                       #? MPI_PROCS <= 1
+sp_scc/H2O-extfield-gfn1                  #? MPI_PROCS <= 1 and WITH_TBLITE
+sp_scc/C4H8_3rdfull                       #? MPI_PROCS <= 1
+sp_scc/C4H8_3rdfull-damp                  #? MPI_PROCS <= 1
+sp_scc/CH2_n_3rdfull                      #? MPI_PROCS <= 1
+sp_scc/CH2_n_3rdfull_damp                 #? MPI_PROCS <= 1
+sp_scc/GaAs_2_restart                     #? MPI_PROCS <= 1
+sp_scc/SiH_custom-ref                     #? MPI_PROCS <= 1
+sp_scc/HH_custom-ref                      #? MPI_PROCS <= 1
+sp_scc/GaAs_2                             #? MPI_PROCS <= 1
+sp_scc/GaAs_2_customU                     #? MPI_PROCS <= 1
+sp_scc/H2O+CH3COOH-3rdorder               #? MPI_PROCS <= 1
+sp_scc/C60                                #? MPI_PROCS <= 4
+sp_scc/C60_Fermi                          #? MPI_PROCS <= 4
+sp_scc/10-0Ctube-extfield                 #? MPI_PROCS <= 4
+sp_scc/SiC_64                             #? MPI_PROCS <= 4
+sp_scc/SiC_32-extchrg-blur                #? MPI_PROCS <= 2
+sp_scc/SiC64+V_dynforce_groups            #? (MPI_PROCS <= 8 and MPI_PROCS % 4 == 0) or not WITH_MPI
+sp_scc/SiC64+V_dynforce                   #? (MPI_PROCS <= 4 and MPI_PROCS % 2 == 0) or not WITH_MPI
+
+sp_transport/CH4                          #? WITH_TRANSPORT and MPI_PROCS <= 4
+sp_transport/GaAs                         #? WITH_TRANSPORT and MPI_PROCS <= 4
+sp_transport/CH4-poisson                  #? WITH_TRANSPORT and MPI_PROCS <= 4
+sp_transport/CNT                          #? WITH_TRANSPORT and MPI_PROCS <= 4
+sp_transport/CNT_GF                       #? WITH_TRANSPORT and MPI_PROCS <= 4 and LONG_TEST
+sp_transport/C-chain_allSteps             #? WITH_TRANSPORT and MPI_PROCS <= 2
+sp_transport/C-chain+U                    #? WITH_TRANSPORT and MPI_PROCS <= 2 and LONG_TEST
+sp_transport/C-chain+Uspin                #? WITH_TRANSPORT and MPI_PROCS <= 4 and LONG_TEST
+sp_transport/SiH-chain_allSteps           #? WITH_TRANSPORT and MPI_PROCS <= 2 and LONG_TEST
+sp_transport/SiH-chain_bin                #? WITH_TRANSPORT and MPI_PROCS <= 2 and LONG_TEST
+sp_transport/H-chain                      #? WITH_TRANSPORT and MPI_PROCS <= 4
+sp_transport/H-chain_Ef                   #? WITH_TRANSPORT and MPI_PROCS <= 4
+sp_transport/H-chain-spin                 #? WITH_TRANSPORT and MPI_PROCS <= 8
+sp_transport/H-chain-fullspin             #? WITH_TRANSPORT and MPI_PROCS <= 8 and LONG_TEST
+sp_transport/H-sheet                      #? WITH_TRANSPORT and MPI_PROCS <= 4
+sp_transport/H-sheet_grp2                 #? WITH_TRANSPORT and MPI_PROCS <= 8 and MPI_PROCS % 2 == 0
+sp_transport/H-sheet_grp4                 #? WITH_TRANSPORT and MPI_PROCS <= 16 and MPI_PROCS % 4 == 0
+sp_transport/H-sheet_grp8                 #? WITH_TRANSPORT and MPI_PROCS <= 32 and MPI_PROCS % 8 == 0
+sp_transport/H-3conts                     #? WITH_TRANSPORT and MPI_PROCS <= 4
+sp_transport/SiH-chain                    #? WITH_TRANSPORT and MPI_PROCS <= 4 and LONG_TEST
+sp_transport/SiH-chain-cont               #? WITH_TRANSPORT and MPI_PROCS <= 4
+sp_transport/SiH-cont-poiss               #? WITH_TRANSPORT and MPI_PROCS <= 4
+sp_transport/graphene_x                   #? WITH_TRANSPORT and MPI_PROCS <= 4 and LONG_TEST
+sp_transport/graphene3T                   #? WITH_TRANSPORT and MPI_PROCS <= 4 and LONG_TEST
+sp_transport/Au-chain                     #? WITH_TRANSPORT and MPI_PROCS <= 4
+sp_transport/SiH-chain_semiInf            #? WITH_TRANSPORT and MPI_PROCS <= 2 and LONG_TEST
+sp_transport/local-curr                   #? WITH_TRANSPORT and MPI_PROCS <= 4 and LONG_TEST
+sp_transport/polyacetylene_semiInf        #? WITH_TRANSPORT and MPI_PROCS <= 4
+sp_transport/H-sheet_end                  #? WITH_TRANSPORT and MPI_PROCS <= 4

@@ -14,8 +14,18 @@ module dftbp_common_accuracy
 
   public
 
+  !> Real double precision - do not edit
+  integer, parameter :: rdp = kind(0.0d0)
+
+  !> Real single precision - do not edit
+  integer, parameter :: rsp = kind(0.0)
+
   !> precision of the real data type
+#:if defined("SP")
+  integer, parameter :: dp = rsp
+#:else
   integer, parameter :: dp = kind(1.0d0)
+#:endif
 
   !> precision of the complex data type
   integer, parameter :: cp = dp
@@ -29,12 +39,6 @@ module dftbp_common_accuracy
   !> length of a long string
   integer, parameter :: lc = 1024
 
-
-  !> Real double precision - do not edit
-  integer, parameter :: rdp = kind(0.0d0)
-
-  !> Real single precision - do not edit
-  integer, parameter :: rsp = kind(0.0)
 
   ! Program technical constants
 
@@ -51,13 +55,21 @@ module dftbp_common_accuracy
   !> Fermi level is searched to give the number of electrons as accurate as elecTol. If bisection
   !> ends and difference between nr. of electrons calculated/theoretical is bigger than elecTolMax,
   !> the program stops.
+#:if defined("SP")
+  real(dp), parameter :: elecTol = 1.0e-6_dp
+#:else
   real(dp), parameter :: elecTol = 1.0e-15_dp
+#:endif
 
 
   !> Maximal allowed tolerance for number of total electrons when finding Ef
   !> or when reading in charges from external file
+#:if defined("SP")
+  !real(dp), parameter :: elecTolMax = 1.0e-3_dp
+  real(dp), parameter :: elecTolMax = 1.0e-4_dp
+#:else
   real(dp), parameter :: elecTolMax = 1.0e-7_dp
-
+#:endif
 
   !> Minimal temperature, temperatures below that are replaced by this value
   real(dp), parameter :: minTemp = 1.0e-8_dp

@@ -7,7 +7,7 @@ Geometry = GenFormat {
 
 Hamiltonian = DFTB {
   SCC = Yes
-  SCCTolerance = 1e-8
+  SCCTolerance = 1e-5
   MaxAngularMomentum {
     H = SelectedShells{"s" "s" }
   }

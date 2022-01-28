@@ -1108,10 +1108,10 @@ contains
 
     #:if WITH_MPI
       if (env%mpi%nGroup == 1) then
-        write(stdOut,*) 'k-point',iK,'Spin',iS
+        !write(stdOut,*) 'k-point',iK,'Spin',iS
       end if
     #:else
-      write(stdOut,*) 'k-point',iK,'Spin',iS
+      !write(stdOut,*) 'k-point',iK,'Spin',iS
     #:endif
 
       call foldToCSR(this%csrHam, ham(:,iS), kPoints(:,iK), iAtomStart, iPair, iNeighbor,&
@@ -1257,7 +1257,7 @@ contains
       iK = groupKS(1, iKS)
       iS = groupKS(2, iKS)
 
-      write(stdOut,*) 'k-point',iK,'Spin',iS
+      !write(stdOut,*) 'k-point',iK,'Spin',iS
 
       call foldToCSR(this%csrHam, ham(:,iS), kPoints(:,iK), iAtomStart, iPair, iNeighbor,&
           & nNeighbor, img2CentCell, iCellVec, cellVec, orb)
@@ -1960,7 +1960,7 @@ contains
       iK = groupKS(1, iKS)
       iS = groupKS(2, iKS)
 
-      write(stdOut,*) 'k-point',iK,'Spin',iS
+      !write(stdOut,*) 'k-point',iK,'Spin',iS
 
       ! We need to recompute Rho and RhoE .....
       call foldToCSR(this%csrHam, ham(:,iS), kPoints(:,iK), iAtomStart, iPair,&

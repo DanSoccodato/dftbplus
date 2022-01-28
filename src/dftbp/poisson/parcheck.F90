@@ -52,7 +52,7 @@ contains
 
    if(period) then
       !checks that the latt vect are directed along x,y,z
-      !if (boxsiz(1,2).ne.0.d0 .or. boxsiz(1,3).ne. 0.d0 .or. boxsiz(2,3).ne. 0.d0) then
+      !if (boxsiz(1,2).ne.0.0_dp .or. boxsiz(1,3).ne. 0.0_dp .or. boxsiz(2,3).ne. 0.0_dp) then
       !   call error('ERROR: Supercell box is not compatible with Poisson solver')
       !end if
       !
@@ -105,8 +105,8 @@ contains
    if (.not.cluster) then
      !-OLD Bias,BiasDir compatibility -----------------
      if (ncont.eq.2) then
-       !if(mu(ni(1)).eq.0.d0) mu(ni(1))=0.d0
-       !if(mu(nf(1)).eq.0.d0) mu(nf(1))=bias
+       !if(mu(ni(1)).eq.0.0_dp) mu(ni(1))=0.0_dp
+       !if(mu(nf(1)).eq.0.0_dp) mu(nf(1))=bias
        if (contdir(1).ne.contdir(2)) then
          if (localBC(1).eq.0) then
            @:ERROR_HANDLING(iErr, -1,&
@@ -156,12 +156,12 @@ contains
 
    if(OxLength.lt.GateLength_l) OxLength=GateLength_l
    if(Rmin_ins.lt.Rmin_gate) Rmin_ins=Rmin_gate
-   if(dr_eps.lt.0.5d0) dr_eps = 0.5d0
+   if(dr_eps.lt.0.5_dp) dr_eps = 0.5_dp
 
 
    ! Check nPoles ----------------------------------------
    ! if (Temp.gt.0.and.nPoles.eq.0) nPoles=3
-   ! LmbMax=2.d0*pi*kb*Temp*nPoles
+   ! LmbMax=2.0_dp*pi*kb*Temp*nPoles
 
  end subroutine check_parameters
 
@@ -217,7 +217,7 @@ contains
             write(stdOut,*) 'Inner gate radius=',Rmin_Gate*Bohr__AA,'A'
             write(stdOut,*) 'Inner oxide radius=',Rmin_Ins*Bohr__AA,'A'
             write(stdOut,*) 'Dielectric constant of gate insulator=',eps_r
-            write(stdOut,*) 'Smoothing of eps_r=',(eps_r-1.d0)/(dr_eps*Bohr__AA)
+            write(stdOut,*) 'Smoothing of eps_r=',(eps_r-1.0_dp)/(dr_eps*Bohr__AA)
          end if
          if (any(localBC.gt.0)) then
             do i=1,ncont

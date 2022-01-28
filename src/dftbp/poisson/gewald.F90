@@ -117,7 +117,7 @@ contains
     !evaluate reciprocal space term ( sum over G <> 0) ...
     !/* sum over G until tolerance is reached */
     nrezi = 1
-    lastshell = tol+1.d-8
+    lastshell = tol+1.e-8_dp
     reciprocal = 0.0_dp
     DO WHILE ((nrezi .le. nmax) .and. ((nrezi .le. nmin) .or. &
       &   (abs(lastshell) .gt.  tol)))
@@ -171,7 +171,7 @@ contains
               rh(2)=r(2)-(i*basis(1,2)+j*basis(2,2)+k*basis(3,2))
               rh(3)=r(3)-(i*basis(1,3)+j*basis(2,3)+k*basis(3,3))
               norm=sqrt(rh(1)*rh(1)+rh(2)*rh(2)+rh(3)*rh(3))
-              IF (norm .gt. 1.d-20) THEN
+              IF (norm .gt. 1.e-20_dp) THEN
                 !erfc=1-erf
                 help   = terfc(alpha*norm)/norm
                 rcspace = rcspace + help
@@ -250,7 +250,7 @@ contains
     !  evaluate reciprocal space term ( sum over G <> 0) ...
     !   /* sum over G until tolerance is reached */
     nrezi = 1
-    lastshell = tol+1d-8
+    lastshell = tol+1e-8_dp
     reciprocal = 0._dp
     DO WHILE ((nrezi .le. nmax) .and. ((nrezi .le. nmin) .or. &
       &    (abs(lastshell) .gt.  tol)))
@@ -304,7 +304,7 @@ contains
               rh(2)=r(2)-(i*basis(1,2)+j*basis(2,2)+k*basis(3,2))
               rh(3)=r(3)-(i*basis(1,3)+j*basis(2,3)+k*basis(3,3))
               norm=sqrt(rh(1)*rh(1)+rh(2)*rh(2)+rh(3)*rh(3))
-              IF (norm .gt. 1.d-20) THEN
+              IF (norm .gt. 1.e-20_dp) THEN
                 !erfc=1-erf
                 help   = terfc(alpha*norm)/norm
                 rcspace = rcspace + help
@@ -329,7 +329,7 @@ contains
     cterm = -Pi/(vol*alpha*alpha)
 
     !  if r = 0 there is another constant to be added
-    IF ((r(1)*r(1)+r(2)*r(2)+r(3)*r(3)) .lt. 1.d-20) THEN
+    IF ((r(1)*r(1)+r(2)*r(2)+r(3)*r(3)) .lt. 1.e-20_dp) THEN
       cterm = cterm -2._dp*alpha/sqrt(Pi)
     END IF
 
@@ -369,7 +369,7 @@ contains
     nmax = 20
     nmin = 2
 
-    IF((r(1)*r(1) + r(2)*r(2) + r(3)*r(3)) .lt. 1.d-20) THEN
+    IF((r(1)*r(1) + r(2)*r(2) + r(3)*r(3)) .lt. 1.e-20_dp) THEN
       deriv(1) = 0._dp
       deriv(2) = 0._dp
       deriv(3) = 0._dp

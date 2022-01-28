@@ -7,7 +7,7 @@
 # automatically default to RelWithDebInfo if used in a single configuration build. Uncomment or
 # override it only if you want a non-default single configuration build.
 
-option(WITH_OMP "Whether OpenMP thread parallisation should be enabled" TRUE)
+option(WITH_OMP "Whether OpenMP thread parallisation should be enabled" FALSE)
 
 option(WITH_MPI "Whether DFTB+ should support MPI-parallelism" FALSE)
 # If you build an MPI-parallised binary, consider to set WITH_OMP (OpenMP thread parallelisaton) to
@@ -18,8 +18,10 @@ option(WITH_ELSI "Whether DFTB+ with MPI-parallelism should use the ELSI librari
 
 option(WITH_GPU "Whether DFTB+ should support GPU-acceleration via the MAGMA-library" FALSE)
 
-option(WITH_TRANSPORT "Whether transport via libNEGF should be included." FALSE)
+option(WITH_TRANSPORT "Whether transport via libNEGF should be included." TRUE)
 # Works only when building static libraries (see option BUILD_SHARED_LIBS)
+
+option(WITH_SP "Whether dftb+ should be compiled in single precision." TRUE)
 
 option(WITH_POISSON "Whether the Poisson-solver should be included" ${WITH_TRANSPORT})
 # The Poisson-solver is mostly used in transport calculations only. Enable this option
@@ -41,7 +43,7 @@ option(WITH_PLUMED "Whether metadynamics via the PLUMED2 library should be allow
 
 option(WITH_CHIMES "Whether repulsive corrections via the ChIMES library should be enabled" FALSE)
 
-option(WITH_API "Whether public API should be included and the DFTB+ library installed" TRUE)
+option(WITH_API "Whether public API should be included and the DFTB+ library installed" FALSE)
 # Turn this on, if you want to use the DFTB+ library to integrate DFTB+ into other software
 # packages. (Otherwise only a stripped down version of the library without the public API is built.)
 # This will also install necessary include and module files and further libraries needed to link the

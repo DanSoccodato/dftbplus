@@ -12,13 +12,14 @@
 !>
 program test_qdepextpot
   use dftbplus
+  use dftbp_common_accuracy, only : dp    !Comment: line added to support single precision compatibility
   use extchargepot, only : getPointChargePotential
   use extchargepotgen, only : TExtChargePotGen, TExtChargePotGen_init
   ! Only needed for the internal test system
   use testhelpers, only : writeAutotestTag
   implicit none
 
-  integer, parameter :: dp = kind(1.0d0)
+  !integer, parameter :: dp = kind(1.0d0)  Comment: line removed to support single precision compatibility
 
   integer, parameter :: nQmAtom = 3
   integer, parameter :: nExtCharge = 2

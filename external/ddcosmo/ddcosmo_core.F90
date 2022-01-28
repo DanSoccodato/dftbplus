@@ -21,8 +21,11 @@ module ddcosmo_core
   public :: TDomainDecomposition, TDomainDecompositionInput, TDomainDecomposition_init
   public :: hsnorm, calcv, intrhs, prtsph, adjrhs, wghpot, ddupdate, fdoka, fdokb, fdoga
 
-
+#:if defined("SP")
+  integer, parameter :: dp = kind(0.0)
+#:else
   integer, parameter :: dp = selected_real_kind(15)
+#:endif
   integer, parameter :: ndiis=25, iout=6, nngmax=100
   real(dp), parameter :: zero=0._dp, pt5=0.5_dp, one=1._dp, two=2._dp, four=4._dp
   real(dp), parameter :: se = -1.0_dp

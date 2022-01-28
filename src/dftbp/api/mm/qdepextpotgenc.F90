@@ -19,17 +19,44 @@ module dftbp_dftbplus_qdepextpotgenc
   !> Interface to the routine which calculates the external potential due to charges
   abstract interface
 
+#:if defined("SP")
     !> Interface to set up external potential
     subroutine getExtPotIfaceC(refPtr, dQAtom, extPotAtom) bind(C)
-      import :: c_double, c_ptr
+      import :: c_float, c_ptr
 
       !> Reference pointer
       type(c_ptr), value, intent(in) :: refPtr
 
       !> Net number of electrons on each atom (note: positive number means electron excess)
-      real(c_double), intent(in)  :: dQAtom(*)
+      real(c_float), intent(in)  :: dQAtom(*)
 
       !> Potential on each atom (note: positive number means electron repulsion)
+      real(c_float), intent(out) :: extPotAtom(*)
+
+    end subroutine getExtPotIfaceC
+
+
+    !> Interface to set up gradient of external potential
+    subroutine getExtPotGradIfaceC(refPtr, dQAtom, extPotAtomGrad) bind(C)
+      import :: c_float, c_ptr
+
+      !> Reference pointer
+      type(c_ptr), value, intent(in) :: refPtr
+
+      !> Net number of electrons on each atom (note: positive number means electron excess)
+      real(c_float), intent(in) :: dQAtom(*)
+
+      !> Gradient of the potential on each atom (note: positive number means electron repulsion)
+      real(c_float), intent(out) :: extPotAtomGrad(3, *)
+
+    end subroutine getExtPotGradIfaceC
+#:else
+    !> Interface to set up external potential
+    subroutine getExtPotIfaceC(refPtr, dQAtom, extPotAtom) bind(C)
+      import :: c_double, c_ptr
+
+      type(c_ptr), value, intent(in) :: refPtr
+      real(c_double), intent(in)  :: dQAtom(*)
       real(c_double), intent(out) :: extPotAtom(*)
 
     end subroutine getExtPotIfaceC
@@ -39,16 +66,12 @@ module dftbp_dftbplus_qdepextpotgenc
     subroutine getExtPotGradIfaceC(refPtr, dQAtom, extPotAtomGrad) bind(C)
       import :: c_double, c_ptr
 
-      !> Reference pointer
       type(c_ptr), value, intent(in) :: refPtr
-
-      !> Net number of electrons on each atom (note: positive number means electron excess)
       real(c_double), intent(in) :: dQAtom(*)
-
-      !> Gradient of the potential on each atom (note: positive number means electron repulsion)
       real(c_double), intent(out) :: extPotAtomGrad(3, *)
 
     end subroutine getExtPotGradIfaceC
+#:endif
 
   end interface
 

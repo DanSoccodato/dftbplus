@@ -6495,7 +6495,7 @@ contains
       norbs = norbs + orb%nOrbAtom(ii)
     enddo
     allocate(elph%coupling(norbs))
-    elph%coupling(:) = 0.d0
+    elph%coupling(:) = 0.0_dp
 
     elph%orbsperatm = orb%nOrbAtom(atm_range(1):atm_range(2))
 
@@ -6521,7 +6521,7 @@ contains
     case ("atomcoupling")
       call getChild(child, "AtomCoupling", child2, requested=.false.)
       allocate(atmCoupling(atm_range(2)-atm_range(1)+1))
-      atmCoupling = 0.d0
+      atmCoupling = 0.0_dp
       call getChildren(child2, "AtomList", children)
       do ii = 1, getLength(children)
         call getItem1(children, ii, child3)
@@ -6768,7 +6768,7 @@ contains
           call getChildValue(pNode, "LevelSpacing", contacts(ii)%wideBandDos, 0.735_dp,&
               & modifier=modifier, child=field)
           call convertByMul(char(modifier), energyUnits, field, contacts(ii)%wideBandDos)
-          contacts(ii)%wideBandDos = 1.d0 / contacts(ii)%wideBandDos
+          contacts(ii)%wideBandDos = 1.0_dp / contacts(ii)%wideBandDos
 
         end if
 

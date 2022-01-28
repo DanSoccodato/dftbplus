@@ -26,7 +26,7 @@
 #:set WITH_MPI = defined('WITH_MPI')
 
 program test_setSpeciesAndDependents
-  use, intrinsic :: iso_fortran_env, only: output_unit, REAL64, IOSTAT_END
+  use, intrinsic :: iso_fortran_env, only: output_unit, REAL64, REAL32, IOSTAT_END
 #:if WITH_MPI
   use mpi
 #:endif
@@ -37,7 +37,11 @@ program test_setSpeciesAndDependents
   implicit none
 
   !> Precision and unit conversion
+#:if defined("SP")
+  integer, parameter :: dp = REAL32
+#:else
   integer, parameter :: dp = REAL64
+#:endif
   real(dp), parameter :: Bohr__AA = 0.529177249_dp
   real(dp), parameter :: AA__Bohr = 1.0_dp / Bohr__AA
 

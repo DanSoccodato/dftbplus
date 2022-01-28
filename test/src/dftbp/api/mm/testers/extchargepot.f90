@@ -12,6 +12,7 @@
 !> The tasks implemented here should be provided by the MM-driver in a production code.
 !>
 module extchargepot
+  use dftbp_common_accuracy, only : dp    !Comment: line added to support single precision compatibility
   implicit none
   private
 
@@ -19,7 +20,7 @@ module extchargepot
 
 
   !> double precision kind
-  integer, parameter :: dp = kind(1.0d0)
+  !integer, parameter :: dp = kind(1.0d0)  Comment: line removed to support single precision compatibility
 
 
 contains

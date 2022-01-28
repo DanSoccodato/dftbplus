@@ -7,6 +7,7 @@
 
 !> Dummy generator for an external potential given by surrounding point charges
 module extchargepotgen
+  use dftbp_common_accuracy, only : dp    !Comment: line added to support single precision compatibility
   use dftbp_dftbplus_qdepextpotgen, only : TQDepExtPotGen
   use extchargepot, only : getPointChargePotential
   implicit none
@@ -15,7 +16,7 @@ module extchargepotgen
   public :: TExtChargePotGen, TExtChargePotGen_init
 
   !> double precision
-  integer, parameter :: dp = kind(1.0d0)
+  !integer, parameter :: dp = kind(1.0d0)  Comment: line removed to support single precision compatibility
 
 
   !> type extension to add this generator to the internal DFTB structure
