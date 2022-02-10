@@ -7,9 +7,9 @@
 # automatically default to RelWithDebInfo if used in a single configuration build. Uncomment or
 # override it only if you want a non-default single configuration build.
 
-option(WITH_OMP "Whether OpenMP thread parallisation should be enabled" FALSE)
+option(WITH_OMP "Whether OpenMP thread parallisation should be enabled" TRUE)
 
-option(WITH_MPI "Whether DFTB+ should support MPI-parallelism" FALSE)
+option(WITH_MPI "Whether DFTB+ should support MPI-parallelism" TRUE)
 # If you build an MPI-parallised binary, consider to set WITH_OMP (OpenMP thread parallelisaton) to
 # FALSE unless you want hybrid parallelisation (for experts only).
 
@@ -88,6 +88,13 @@ set(TEST_OMP_THREADS "1" CACHE STRING "Nr. of OpenMP-threads used for testing")
 # Command line used to launch the test code.
 # The escaped variables (\${VARIABLE}) will be substituted by the corresponding CMake variables.
 if(WITH_MPI)
+	#  set(CMAKE_Fortran_COMPILER "mpif90" CACHE STRING "Fortran compiler")
+	#  set(CMAKE_C_COMPILER "mpicc" CACHE STRING "C compiler")
+	#  set(MKL_LIBDIR "/p/software/juwelsbooster/stages/2020/software/imkl/2021.2.0-npsmpic-2021/mkl/2021.2.0/lib/intel64/" CACHE STRING "MKL path")
+	#  set(SCALAPACK_LIBRARY_DIR "${MKL_LIBDIR}"
+	#           CACHE STRING "Directories where Scalapack libraries can be found")
+	#  set(SCALAPACK_LIBRARY "libmkl_gf_lp64.so;libmkl_gnu_thread.so;libmkl_core.so" CACHE STRING "Scalapack libraries to link")
+
   set(TEST_RUNNER_TEMPLATE "env OMP_NUM_THREADS=\${TEST_OMP_THREADS} mpiexec -n \${TEST_MPI_PROCS}"
     CACHE STRING "How to run the tests")
 else()
